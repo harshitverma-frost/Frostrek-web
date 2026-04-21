@@ -76,31 +76,14 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="relative min-h-screen py-24 md:py-32 font-sans overflow-hidden"
-      style={{
-        backgroundImage: 'url("https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&h=900&fit=crop")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
+      className="relative min-h-screen py-24 md:py-32 font-sans overflow-hidden bg-black"
     >
-      {/* Enhanced overlay with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/75 to-black/80 pointer-events-none" />
-
-      {/* Light reveal overlays for background visibility */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(6,182,212,0.2),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_rgba(168,85,247,0.12),transparent_60%)] pointer-events-none" />
-
-      {/* Animated grid background */}
-      <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.3)_1px,transparent_1px)] bg-[size:60px_60px]" />
-      </div>
 
       {/* Content Container */}
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-16 md:gap-20 px-4 sm:px-6 md:px-8">
         {/* Header Section */}
         <div className="mx-auto max-w-4xl text-center">
-          <motion.div
+          {/* <motion.div
             className="inline-block mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -112,18 +95,17 @@ const Services = () => {
                 ⚡ Services
               </p>
             </div>
-          </motion.div>
+          </motion.div> */}
 
           <motion.h2
-            className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-50 leading-[1.1]"
+            className=" text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-50 leading-[1.1]"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            Next-Gen AI{" "}
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Solutions
+            <span className="text-[#2EE1C7] font-Raleway">
+              Our Services
             </span>
           </motion.h2>
 
@@ -146,14 +128,14 @@ const Services = () => {
             return (
               <motion.article
                 key={service.title}
-                className="group relative flex flex-col h-full rounded-2xl md:rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950/70 via-slate-900/50 to-slate-950/70 p-7 md:p-9 text-left backdrop-blur-2xl transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-cyan-500/10"
+                className="group relative flex flex-col h-full rounded-2xl md:rounded-3xl border border-[#2EE1C7]/30 bg-zinc-950/30 p-7 md:p-9 text-left backdrop-blur-3xl transition-all duration-500 overflow-hidden hover:shadow-2xl hover:shadow-[#2EE1C7]/10"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 custom={index}
                 variants={cardVariants}
                 whileHover={{
-                  borderColor: "rgba(6, 182, 212, 0.5)",
+                  borderColor: "rgba(46, 225, 199, 0.6)",
                   y: -8,
                   scale: 1.02,
                   transition: { duration: 0.3, ease: "easeOut" }
@@ -198,7 +180,7 @@ const Services = () => {
                     >
                       <Icon className="w-6 h-6 text-white" strokeWidth={2} />
                     </motion.div>
-                    
+
                     <motion.span
                       className="text-5xl md:text-6xl font-bold bg-gradient-to-br from-white/30 to-white/10 bg-clip-text text-transparent group-hover:from-cyan-400/40 group-hover:to-purple-400/20 transition-all duration-500"
                       animate={{ rotate: [0, 3, 0] }}

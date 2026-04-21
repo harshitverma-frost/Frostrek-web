@@ -35,7 +35,7 @@ const Home = () => {
         description="Frostrek is an ISO certified enterprise AI company delivering agentic AI systems, GenAI solutions, automation platforms, and scalable software for global businesses."
         canonicalUrl="https://www.frostrek.com/"
       />
-    <div className="bg-[#0B0B0E] text-[#FFFFFF] min-h-screen scroll-smooth">
+    <div className="bg-black text-[#FFFFFF] min-h-screen scroll-smooth">
       <Hero />
       <Services />
       <WhyChooseUs />
@@ -51,7 +51,7 @@ const App = () => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   return (
-    <div className="bg-[#0B0B0E] min-h-screen">
+    <div className="bg-black min-h-screen">
       <Navbar />
       <ScrollToTop />
 
