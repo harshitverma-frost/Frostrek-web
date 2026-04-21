@@ -115,11 +115,10 @@ const Navbar = () => {
         className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4 md:px-8 md:py-5 pointer-events-none"
       >
         <div
-          className={`w-full max-w-7xl transition-all duration-500 ease-in-out pointer-events-auto rounded-[28px] md:rounded-full border backdrop-blur-2xl shadow-2xl ${
-            scrolled
-              ? "border-white/20 bg-white/5 shadow-black/40 py-2 px-5 md:px-8"
-              : "border-white/10 bg-white/5 shadow-transparent py-3 px-6 md:px-10"
-          } ${isOpen ? "rounded-[28px]" : ""}`}
+          className={`w-full max-w-7xl transition-all duration-500 ease-in-out pointer-events-auto rounded-[28px] md:rounded-full border backdrop-blur-2xl ${scrolled
+            ? "border-white/20 bg-white/5 shadow-[0_0_25px_rgba(46,225,199,0.5),0_0_5px_rgba(46,225,199,0.4)] py-2 px-5 md:px-8"
+            : "border-white/10 bg-white/5 shadow-[0_0_20px_rgba(46,225,199,0.35),0_0_10px_rgba(46,225,199,0.3)] py-3 px-6 md:px-10"
+            } ${isOpen ? "rounded-[28px]" : ""}`}
         >
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -144,11 +143,10 @@ const Navbar = () => {
                   <div key={link.href} className="relative group/item">
                     <Link
                       to="/services"
-                      className={`rounded-full px-4 py-2 transition-all duration-300 ${
-                        isActive("/services")
-                          ? "bg-cyan-500/15 text-cyan-400"
-                          : "hover:bg-white/5 hover:text-white"
-                      }`}
+                      className={`rounded-full px-4 py-2 transition-all duration-300 ${isActive("/services")
+                        ? "bg-cyan-500/15 text-cyan-400"
+                        : "hover:bg-white/5 hover:text-white"
+                        }`}
                     >
                       Services
                     </Link>
@@ -172,11 +170,10 @@ const Navbar = () => {
                 ) : link.label === "Partners" ? (
                   <div key={link.href} className="relative group/item">
                     <button
-                      className={`rounded-full px-4 py-2 transition-all duration-300 ${
-                        isActive("/campus") || isActive("/bepartner")
-                          ? "bg-cyan-500/15 text-cyan-400"
-                          : "hover:bg-white/5 hover:text-white"
-                      }`}
+                      className={`rounded-full px-4 py-2 transition-all duration-300 ${isActive("/campus") || isActive("/bepartner")
+                        ? "bg-cyan-500/15 text-cyan-400"
+                        : "hover:bg-white/5 hover:text-white"
+                        }`}
                     >
                       Partners
                     </button>
@@ -201,11 +198,10 @@ const Navbar = () => {
                   <Link
                     key={link.href}
                     to={link.href}
-                    className={`rounded-full px-4 py-2 transition-all duration-300 ${
-                      isActive(link.href)
-                        ? "bg-cyan-500/15 text-cyan-400"
-                        : "hover:bg-white/5 hover:text-white"
-                    }`}
+                    className={`rounded-full px-4 py-2 transition-all duration-300 ${isActive(link.href)
+                      ? "bg-cyan-500/15 text-cyan-400"
+                      : "hover:bg-white/5 hover:text-white"
+                      }`}
                   >
                     {link.label}
                   </Link>
@@ -231,102 +227,102 @@ const Navbar = () => {
 
 
 
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-500 ${isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
-            }`}
-        >
-          <nav className="flex flex-col px-5 py-4 gap-2 text-slate-200">
-            {links.map((link) =>
-              link.label === "Services" ? (
-                <div key={link.href} className="flex flex-col">
-                  {/* Services Button */}
-                  <button
-                    onClick={() => setServicesOpen(!servicesOpen)}
-                    className={`flex items-center justify-between rounded-lg px-3 py-2 hover:bg-cyan-500/10 ${isActive("/services") ? "bg-cyan-500/20 text-cyan-200" : ""
-                      }`}
-                  >
-                    <span>{link.label}</span>
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""
+          {/* Mobile Menu */}
+          <div
+            className={`md:hidden overflow-hidden transition-all duration-500 ${isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+              }`}
+          >
+            <nav className="flex flex-col px-5 py-4 gap-2 text-slate-200">
+              {links.map((link) =>
+                link.label === "Services" ? (
+                  <div key={link.href} className="flex flex-col">
+                    {/* Services Button */}
+                    <button
+                      onClick={() => setServicesOpen(!servicesOpen)}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2 hover:bg-cyan-500/10 ${isActive("/services") ? "bg-cyan-500/20 text-cyan-200" : ""
                         }`}
-                    />
-                  </button>
+                    >
+                      <span>{link.label}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""
+                          }`}
+                      />
+                    </button>
 
-                  {/* Mobile Services Dropdown */}
-                  <div
-                    className={`flex flex-col gap-1 pl-4 mt-1 overflow-hidden transition-all duration-300 ${servicesOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                      }`}
-                  >
-                    {servicesDropdown.map((item, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleServiceClick(item)}
-                        className="text-left text-sm px-3 py-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : link.label === "Partners" ? (
-                <div key={link.href} className="flex flex-col">
-                  {/* Partners Button */}
-                  <button
-                    onClick={() => setPartnersOpen(!partnersOpen)}
-                    className={`flex items-center justify-between rounded-lg px-3 py-2 hover:bg-cyan-500/10 ${isActive("/campus") || isActive("/bepartner") ? "bg-cyan-500/20 text-cyan-200" : ""
-                      }`}
-                  >
-                    <span>{link.label}</span>
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform duration-300 ${partnersOpen ? "rotate-180" : ""
+                    {/* Mobile Services Dropdown */}
+                    <div
+                      className={`flex flex-col gap-1 pl-4 mt-1 overflow-hidden transition-all duration-300 ${servicesOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                         }`}
-                    />
-                  </button>
+                    >
+                      {servicesDropdown.map((item, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleServiceClick(item)}
+                          className="text-left text-sm px-3 py-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : link.label === "Partners" ? (
+                  <div key={link.href} className="flex flex-col">
+                    {/* Partners Button */}
+                    <button
+                      onClick={() => setPartnersOpen(!partnersOpen)}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2 hover:bg-cyan-500/10 ${isActive("/campus") || isActive("/bepartner") ? "bg-cyan-500/20 text-cyan-200" : ""
+                        }`}
+                    >
+                      <span>{link.label}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-300 ${partnersOpen ? "rotate-180" : ""
+                          }`}
+                      />
+                    </button>
 
-                  {/* Mobile Partners Dropdown */}
-                  <div
-                    className={`flex flex-col gap-1 pl-4 mt-1 overflow-hidden transition-all duration-300 ${partnersOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    {/* Mobile Partners Dropdown */}
+                    <div
+                      className={`flex flex-col gap-1 pl-4 mt-1 overflow-hidden transition-all duration-300 ${partnersOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                        }`}
+                    >
+                      {partnersDropdown.map((item, idx) => (
+                        <Link
+                          key={idx}
+                          to={item.href}
+                          onClick={closeMenu}
+                          className="text-left text-sm px-3 py-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={closeMenu}
+                    className={`rounded-lg px-3 py-2 hover:bg-cyan-500/10 ${isActive(link.href) ? "bg-cyan-500/20 text-cyan-200" : ""
                       }`}
                   >
-                    {partnersDropdown.map((item, idx) => (
-                      <Link
-                        key={idx}
-                        to={item.href}
-                        onClick={closeMenu}
-                        className="text-left text-sm px-3 py-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={closeMenu}
-                  className={`rounded-lg px-3 py-2 hover:bg-cyan-500/10 ${isActive(link.href) ? "bg-cyan-500/20 text-cyan-200" : ""
-                    }`}
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
+                    {link.label}
+                  </Link>
+                )
+              )}
 
-            <Link
-              to="/get-in-touch"
-              onClick={closeMenu}
-              className="mt-3 rounded-full bg-[#185351] px-5 py-2.5 text-center text-white font-semibold"
-            >
-              Book a Demo
-            </Link>
-          </nav>
+              <Link
+                to="/get-in-touch"
+                onClick={closeMenu}
+                className="mt-3 rounded-full bg-[#185351] px-5 py-2.5 text-center text-white font-semibold"
+              >
+                Book a Demo
+              </Link>
+            </nav>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
     </>
   );
 };

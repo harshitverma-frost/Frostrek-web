@@ -155,7 +155,7 @@ const HeroAboutPage = () => {
             >
               The AI Infrastructure<br /> For
               {" "}
-              <span className="bg-gradient-to-r from-[#20B94E] via-[#2CE664] to-[#00FFD1] bg-clip-text text-transparent font-Raleway">
+              <span className="text-[#2EE1C7] font-Raleway">
                 Businesses That<br />
               </span>{" "}
               Think Ahead.
