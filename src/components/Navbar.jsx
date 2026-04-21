@@ -111,13 +111,18 @@ const Navbar = () => {
         onClick={closeMenu}
       />
 
+      {/* Announcement Bar */}
+      <div className=" inset-x-0 top-0 z-[60] h-6 bg-[#2EE1C7] flex items-center justify-center overflow-hidden">
+
+      </div>
+
       <header
-        className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 py-4 md:px-8 md:py-5 pointer-events-none"
+        className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 py-4 md:px-8 md:py-5 pointer-events-none"
       >
         <div
-          className={`w-full max-w-7xl transition-all duration-500 ease-in-out pointer-events-auto rounded-[28px] md:rounded-full border backdrop-blur-2xl ${scrolled
-            ? "border-white/20 bg-white/5 shadow-[0_0_25px_rgba(46,225,199,0.5),0_0_5px_rgba(46,225,199,0.4)] py-2 px-5 md:px-8"
-            : "border-white/10 bg-white/5 shadow-[0_0_20px_rgba(46,225,199,0.35),0_0_10px_rgba(46,225,199,0.3)] py-3 px-6 md:px-10"
+          className={`w-full max-w-7xl transition-all duration-500 ease-in-out pointer-events-auto rounded-[28px] md:rounded-full border-2 border-[#2EE1C7] backdrop-blur-2xl bg-black/20 ${scrolled
+            ? "py-2 px-5 md:px-8"
+            : "py-3 px-6 md:px-10"
             } ${isOpen ? "rounded-[28px]" : ""}`}
         >
           <div className="flex items-center justify-between">
@@ -128,10 +133,10 @@ const Navbar = () => {
                 <img
                   src="/logo.png"
                   alt="Frostrek AI"
-                  className="relative h-9 w-9 md:h-10 md:w-10 object-contain transition-transform duration-500 group-hover/logo:scale-110"
+                  className="relative h-10 w-10 md:h-12 md:w-12 object-contain transition-transform duration-500 group-hover/logo:scale-110"
                 />
               </div>
-              <span className="text-xl md:text-2xl font-bold text-white tracking-tight">
+              <span className="text-2xl md:text-3xl font-bold text-white tracking-tight">
                 Frostrek
               </span>
             </Link>
@@ -210,7 +215,7 @@ const Navbar = () => {
 
               <Link
                 to="/get-in-touch"
-                className="ml-2 rounded-full bg-[#185351] px-6 py-2.5 text-[13px] font-bold text-white hover:opacity-90 hover:shadow-[0_0_20px_rgba(24,83,81,0.4)] transition-all duration-300"
+                className="ml-2 rounded-full bg-[#2EE1C7] px-6 py-2.5 text-[13px] font-bold text-black hover:opacity-90 hover:shadow-[0_0_20px_rgba(46,225,199,0.4)] transition-all duration-300"
               >
                 Book a Demo
               </Link>
@@ -315,7 +320,7 @@ const Navbar = () => {
               <Link
                 to="/get-in-touch"
                 onClick={closeMenu}
-                className="mt-3 rounded-full bg-[#185351] px-5 py-2.5 text-center text-white font-semibold"
+                className="mt-3 rounded-full bg-[#2EE1C7] px-5 py-2.5 text-center text-black font-bold"
               >
                 Book a Demo
               </Link>

@@ -153,12 +153,12 @@ const HeroAboutPage = () => {
                 ease: [0.2, 0.8, 0.2, 1],
               }}
             >
-              The AI Infrastructure<br /> For
-              {" "}
+              {/* The AI Infrastructure<br /> For */}
+              {/* {" "} */}
               <span className="text-[#2EE1C7] font-Raleway">
-                Businesses That<br />
+                Intelligent Systems<br />
               </span>{" "}
-              Think Ahead.
+              built to scale with<br /> how your business thinks.
             </motion.h1>
 
             <motion.p
