@@ -112,17 +112,18 @@ const Navbar = () => {
       />
 
       {/* Announcement Bar */}
-      <div className=" inset-x-0 top-0 z-[60] h-6 bg-[#2EE1C7] flex items-center justify-center overflow-hidden">
+      <div className="relative inset-x-0 top-0 z-[60] h-8 bg-[#2EE1C7] flex items-center justify-center overflow-hidden">
 
       </div>
 
       <header
-        className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 py-4 md:px-8 md:py-5 pointer-events-none"
+        className={`fixed inset-x-0 z-50 flex justify-center px-4 transition-all duration-500 pointer-events-none ${scrolled ? "top-4 py-2" : "top-8 py-4 md:py-5"
+          }`}
       >
         <div
           className={`w-full max-w-7xl transition-all duration-500 ease-in-out pointer-events-auto rounded-[28px] md:rounded-full border-2 border-[#2EE1C7] backdrop-blur-2xl bg-black/20 ${scrolled
-            ? "py-2 px-5 md:px-8"
-            : "py-3 px-6 md:px-10"
+            ? "py-3 px-5 md:px-8"
+            : "py-2 px-6 md:px-10"
             } ${isOpen ? "rounded-[28px]" : ""}`}
         >
           <div className="flex items-center justify-between">

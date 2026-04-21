@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Hero3D from "../components/Hero3D";
 import { useMemo } from "react";
-import { Sparkles, Play, ArrowUpRight } from "lucide-react";
+import { Sparkles, Play, ArrowUpRight, ArrowRight } from "lucide-react";
 import usePerformanceMode from "../hooks/usePerformanceMode";
 
 
@@ -144,7 +144,7 @@ const HeroAboutPage = () => {
             </motion.div> */}
 
             <motion.h1
-              className="mt-20 text-5xl font-bold leading-tight text-[#F8FAFC] sm:text-6xl lg:text-7xl xl:text-6xl"
+              className="mt-24 text-5xl font-bold leading-tight text-[#F8FAFC] sm:text-6xl lg:text-7xl xl:text-6xl"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -153,8 +153,6 @@ const HeroAboutPage = () => {
                 ease: [0.2, 0.8, 0.2, 1],
               }}
             >
-              {/* The AI Infrastructure<br /> For */}
-              {/* {" "} */}
               <span className="text-[#2EE1C7] font-Raleway">
                 Intelligent Systems<br />
               </span>{" "}
@@ -172,11 +170,20 @@ const HeroAboutPage = () => {
             </motion.p>
 
             <motion.div
-              className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+              className="mt-12 flex flex-col items-center justify-center gap-6 sm:flex-row"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-            ></motion.div>
+            >
+              <button className="group relative flex items-center justify-center gap-3 rounded-full bg-[#2EE1C7] px-10 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(46,225,199,0.4)] active:scale-95">
+                Contact Us
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </button>
+
+              <button className="group flex items-center justify-center gap-3 rounded-full border-2 border-[#2EE1C7]/30 bg-white/5 px-10 py-4 text-[15px] font-bold text-white backdrop-blur-md transition-all hover:bg-[#2EE1C7]/10 hover:border-[#2EE1C7]/60 active:scale-95">
+                Explore Services
+              </button>
+            </motion.div>
           </motion.div>
 
           {/* <motion.div
