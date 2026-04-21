@@ -86,6 +86,19 @@ const HeroAboutPage = () => {
   const words1 = paragraph1.split(" ");
   const words2 = paragraph2.split(" ");
 
+  const scrollToServices = () => {
+    const element = document.getElementById("services");
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <div className="w-full overflow-x-hidden">
@@ -180,7 +193,10 @@ const HeroAboutPage = () => {
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
 
-              <button className="group flex items-center justify-center gap-3 rounded-full border-2 border-[#2EE1C7]/30 bg-white/5 px-10 py-4 text-[15px] font-bold text-white backdrop-blur-md transition-all hover:bg-[#2EE1C7]/10 hover:border-[#2EE1C7]/60 active:scale-95">
+               <button 
+                onClick={scrollToServices}
+                className="group flex items-center justify-center gap-3 rounded-full border-2 border-[#2EE1C7]/30 bg-white/5 px-10 py-4 text-[15px] font-bold text-white backdrop-blur-md transition-all hover:bg-[#2EE1C7]/10 hover:border-[#2EE1C7]/60 active:scale-95"
+              >
                 Explore Services
               </button>
             </motion.div>
