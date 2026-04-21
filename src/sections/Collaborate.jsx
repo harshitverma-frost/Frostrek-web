@@ -19,38 +19,7 @@ const contactMethods = [
   },
 ];
 
-const AnimatedGridBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 opacity-[0.08]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.3)_1px,transparent_1px)] bg-[size:50px_50px]" />
-      </div>
-      
-      {/* Animated particles */}
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-cyan-400 rounded-full"
-          initial={{
-            x: Math.random() * 100 + "%",
-            y: Math.random() * 100 + "%",
-            opacity: 0,
-          }}
-          animate={{
-            y: [null, Math.random() * 100 + "%"],
-            opacity: [0, 0.6, 0],
-          }}
-          transition={{
-            duration: 4 + Math.random() * 3,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
+
 
 const FormField = ({ label, name, type = "text", placeholder, required, rows, error, value, onChange }) => {
   const [focused, setFocused] = useState(false);
@@ -150,19 +119,7 @@ const FloatingContactCard = ({ method, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Glow background */}
-      <motion.div
-        className="absolute -inset-0.5 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"
-        style={{
-          background: `linear-gradient(135deg, var(--tw-gradient-stops))`,
-          backgroundImage: `linear-gradient(135deg, rgb(6, 182, 212), rgb(6, 182, 212))`,
-        }}
-        animate={{
-          background: isHovered
-            ? `linear-gradient(135deg, ${method.color.split(" ")[1].split("-")[0]}, ${method.color.split(" ")[2]})`
-            : "linear-gradient(135deg, rgb(6, 182, 212), rgb(6, 182, 212))",
-        }}
-      />
+
 
       <div className={`relative flex items-center gap-4 rounded-2xl border border-white/10 bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-6 backdrop-blur-xl transition-all duration-300 ${
         isHovered ? "border-cyan-400/60 bg-cyan-500/5" : "hover:border-white/20"
@@ -304,23 +261,7 @@ const Collaborate = () => {
   };
 
   return (
-    <section className="relative min-h-screen py-20 md:py-32 font-sans overflow-hidden bg-[#0B0B0E]">
-      <AnimatedGridBackground />
-
-      {/* Ambient light effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute -left-96 top-20 h-96 w-96 rounded-full bg-cyan-500/20 blur-3xl"
-          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -right-96 bottom-20 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl"
-          animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-        />
-      </div>
-
+    <section className="relative min-h-screen py-24 md:py-32 font-sans overflow-hidden bg-black">
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 md:px-12 xl:px-20">
         {/* Header */}
         <motion.div
@@ -330,33 +271,22 @@ const Collaborate = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 px-4 py-2 mb-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity }}>
-              <Cpu size={16} className="text-cyan-300" />
-            </motion.div>
-            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200">
-              Book a Demo
-            </span>
-          </motion.div>
-
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Build the next generation
-            </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-8">
+            <span className="text-[#2EE1C7]">Build the next generation</span>
             <br />
-            <span className="text-slate-100">of intelligence with Frostrek</span>
-          </h1>
+            <span>of intelligence with Frostrek</span>
+          </h2>
 
-          <p className="text-lg text-slate-300/80 max-w-2xl mx-auto mt-6 leading-relaxed">
+          <motion.p 
+            className="text-lg text-slate-300/80 max-w-2xl mx-auto mt-6 leading-relaxed"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
             Share your challenges and we'll co-design a roadmap that balances technical depth with
             measurable impact. Our team blends strategy, engineering, and enablement.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Main Grid */}
@@ -364,27 +294,19 @@ const Collaborate = () => {
           {/* Left Section */}
           <motion.div
             className="flex flex-col gap-8"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Highlights Box */}
             <motion.div
               className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950/60 via-slate-900/40 to-slate-950/60 p-8 backdrop-blur-xl overflow-hidden relative"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
             >
-              {/* Animated border glow */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: "radial-gradient(circle at 0% 0%, rgba(6, 182, 212, 0.3), transparent 50%)",
-                }}
-              />
-
               <div className="relative z-10">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300 mb-6">
                   What to Expect
@@ -398,103 +320,99 @@ const Collaborate = () => {
             </motion.div>
 
             {/* Contact Methods */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            <motion.div 
+               className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1"
+               initial={{ opacity: 0, y: 20 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true }}
+               transition={{ delay: 0.4 }}
+            >
               {contactMethods.map((method, index) => (
                 <FloatingContactCard key={method.label} method={method} index={index} />
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Right Section - Form */}
-          <motion.form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950/60 via-slate-900/40 to-slate-950/60 p-8 md:p-10 backdrop-blur-xl overflow-hidden relative"
-            initial={{ opacity: 0, x: 50 }}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Form glow effect on submit */}
-            <AnimatePresence>
-              {status === "submitted" && (
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-950/60 via-slate-900/40 to-slate-950/60 p-8 md:p-10 backdrop-blur-xl overflow-hidden relative"
+            >
+              <div className="relative z-10">
+                {/* Form Header */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-3xl"
+                  className="mb-8"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                />
-              )}
-            </AnimatePresence>
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h3 className="text-2xl font-bold text-slate-50 mb-2">Tell us about your project</h3>
+                  <p className="text-sm font-normal text-slate-400">
+                    We'll respond within one business day with next steps and a suggested time to connect.
+                  </p>
+                </motion.div>
 
-            <div className="relative z-10">
-              {/* Form Header */}
-              <motion.div
-                className="mb-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <h3 className="text-2xl font-bold text-slate-50 mb-2">Tell us about your project</h3>
-                <p className="text-sm font-normal text-slate-400">
-                  We'll respond within one business day with next steps and a suggested time to connect.
-                </p>
-              </motion.div>
+                {/* Form Fields */}
+                <div className="space-y-5 mb-6">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <FormField
+                      label="Full name"
+                      name="name"
+                      placeholder="Alex Rivera"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      error={formErrors.name}
+                    />
+                    <FormField
+                      label="Work email"
+                      name="email"
+                      type="email"
+                      placeholder="you@company.com"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      error={formErrors.email}
+                    />
+                  </div>
 
-              {/* Form Fields */}
-              <div className="space-y-5 mb-6">
-                <div className="grid gap-5 sm:grid-cols-2">
                   <FormField
-                    label="Full name"
-                    name="name"
-                    placeholder="Alex Rivera"
-                    required
-                    value={formData.name}
+                    label="Company / organisation"
+                    name="company"
+                    placeholder="Frostrek Labs"
+                    value={formData.company}
                     onChange={handleInputChange}
-                    error={formErrors.name}
                   />
+
                   <FormField
-                    label="Work email"
-                    name="email"
-                    type="email"
-                    placeholder="you@company.com"
+                    label="How can we help?"
+                    name="message"
+                    type="textarea"
+                    rows={5}
+                    placeholder="Share a bit about your initiative, timeline, or KPIs."
                     required
-                    value={formData.email}
+                    value={formData.message}
                     onChange={handleInputChange}
-                    error={formErrors.email}
+                    error={formErrors.message}
                   />
                 </div>
 
-                <FormField
-                  label="Company / organisation"
-                  name="company"
-                  placeholder="Frostrek Labs"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                />
-
-                <FormField
-                  label="How can we help?"
-                  name="message"
-                  type="textarea"
-                  rows={5}
-                  placeholder="Share a bit about your initiative, timeline, or KPIs."
-                  required
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  error={formErrors.message}
-                />
-              </div>
-
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={loading}
-                className="w-full group relative flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-500 px-6 py-4 text-sm font-semibold text-slate-900 transition-all duration-300 disabled:opacity-50"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full group relative flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-500 px-6 py-4 text-sm font-semibold text-slate-900 transition-all duration-300 disabled:opacity-50"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                 <motion.div
                   animate={{ rotate: loading ? 360 : 0 }}
                   transition={{ duration: 1, repeat: loading ? Infinity : 0 }}
@@ -528,7 +446,8 @@ const Collaborate = () => {
                 )}
               </AnimatePresence>
             </div>
-          </motion.form>
+          </form>
+        </motion.div>
         </div>
       </div>
     </section>

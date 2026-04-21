@@ -9,7 +9,8 @@ import FrostyChatbot from "./components/FrostyChatbot";
 
 import Hero from "./sections/Hero";
 import Services from "./sections/Services";
-import WhyChooseUs from "./sections/WhyChooseUs";
+import TrustedBy from "./sections/TrustedBy";
+
 import Testimonials from "./sections/Testimonials";
 import FAQs from "./sections/FAQs";
 import Collaborate from "./sections/Collaborate";
@@ -38,7 +39,8 @@ const Home = () => {
     <div className="bg-black text-[#FFFFFF] min-h-screen scroll-smooth">
       <Hero />
       <Services />
-      <WhyChooseUs />
+      <TrustedBy />
+
       <Testimonials />
       <FAQs />
       <Collaborate />

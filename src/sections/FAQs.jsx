@@ -53,41 +53,9 @@ const faqs = [
   },
 ];
 
-const AnimatedGridBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden opacity-[0.08] pointer-events-none">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.3)_1px,transparent_1px)] bg-[size:50px_50px]" />
-    </div>
-  );
-};
 
-const ParticleField = () => {
-  return (
-    <>
-      {[...Array(40)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-cyan-400 rounded-full"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            opacity: 0,
-          }}
-          animate={{
-            y: [null, Math.random() * window.innerHeight],
-            opacity: [0, 0.6, 0],
-          }}
-          transition={{
-            duration: 4 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </>
-  );
-};
+
+
 
 const FAQItem = ({ faq, index, isOpen, onToggle, onHelpful }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -101,61 +69,26 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onHelpful }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -50, rotateY: -15 }}
-      whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
       className="relative group font-sans"
       style={{ transformStyle: "preserve-3d" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ scale: 1.01 }}
     >
-      {/* Holographic Glow */}
-      <motion.div
-        className="absolute -inset-0.5 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
-        style={{
-          background: "linear-gradient(90deg, #00FFFF, #6D28D9, #14B8A6, #00FFFF)",
-          backgroundSize: "300% 300%",
-        }}
-        animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-        }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-      />
+
 
       <div
-        className={`relative bg-gradient-to-br from-[#0D0D10] via-[#0B0B0E] to-[#0B0B0E] rounded-2xl border transition-all duration-500 overflow-hidden backdrop-blur-sm cursor-pointer ${
-          isOpen
-            ? "border-cyan-400 shadow-lg shadow-cyan-500/30"
-            : "border-cyan-500/20 hover:border-cyan-400/50"
-        }`}
+        className={`relative bg-gradient-to-br from-[#0D0D10] via-[#0B0B0E] to-[#0B0B0E] rounded-2xl border transition-all duration-500 overflow-hidden backdrop-blur-sm cursor-pointer ${isOpen
+          ? "border-cyan-400 shadow-lg shadow-cyan-500/30"
+          : "border-cyan-500/20 hover:border-cyan-400/50"
+          }`}
         onClick={onToggle}
       >
-        {/* Scan Line */}
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
-              initial={{ y: "-100%" }}
-              animate={{ y: "200%" }}
-              exit={{ y: "200%" }}
-              transition={{ duration: 1.5, ease: "linear" }}
-            />
-          )}
-        </AnimatePresence>
 
-        {/* Digital Grid Overlay */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `
-                repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.5) 0px, rgba(0, 255, 255, 0.5) 1px, transparent 1px, transparent 3px),
-                repeating-linear-gradient(90deg, rgba(0, 255, 255, 0.5) 0px, rgba(0, 255, 255, 0.5) 1px, transparent 1px, transparent 3px)
-              `,
-            }}
-          />
-        </div>
 
         {/* Corner Accents */}
         <motion.div
@@ -227,9 +160,8 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onHelpful }) => {
             />
             <ChevronDown
               size={24}
-              className={`relative transition-colors duration-300 ${
-                isOpen ? "text-cyan-400" : "text-[#9CA3AF]"
-              }`}
+              className={`relative transition-colors duration-300 ${isOpen ? "text-cyan-400" : "text-[#9CA3AF]"
+                }`}
             />
           </motion.div>
         </div>
@@ -290,11 +222,10 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onHelpful }) => {
                   {/* Helpful Button */}
                   <motion.button
                     onClick={handleHelpful}
-                    className={`flex items-center gap-2 px-3 py-1 rounded-lg transition-all duration-300 ${
-                      isHelpful
-                        ? "bg-cyan-500/20 border border-cyan-400/50 text-cyan-300"
-                        : "bg-white/5 border border-white/10 text-slate-400 hover:border-cyan-400/30 hover:text-cyan-300"
-                    }`}
+                    className={`flex items-center gap-2 px-3 py-1 rounded-lg transition-all duration-300 ${isHelpful
+                      ? "bg-cyan-500/20 border border-cyan-400/50 text-cyan-300"
+                      : "bg-white/5 border border-white/10 text-slate-400 hover:border-cyan-400/30 hover:text-cyan-300"
+                      }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -307,19 +238,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onHelpful }) => {
           )}
         </AnimatePresence>
 
-        {/* Bottom Tech Line */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              className="h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              exit={{ scaleX: 0 }}
-              transition={{ duration: 0.5 }}
-              style={{ transformOrigin: "left" }}
-            />
-          )}
-        </AnimatePresence>
+
       </div>
     </motion.div>
   );
@@ -352,11 +271,10 @@ const SearchAndFilter = ({ searchTerm, setSearchTerm, activeCategory, setActiveC
           <motion.button
             key={category}
             onClick={() => setActiveCategory(activeCategory === category ? "" : category)}
-            className={`px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
-              activeCategory === category
-                ? "bg-cyan-400/20 border border-cyan-400 text-cyan-300"
-                : "bg-white/5 border border-white/10 text-slate-400 hover:border-cyan-400/30"
-            }`}
+            className={`px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${activeCategory === category
+              ? "bg-cyan-400/20 border border-cyan-400 text-cyan-300"
+              : "bg-white/5 border border-white/10 text-slate-400 hover:border-cyan-400/30"
+              }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -402,100 +320,56 @@ const FAQs = () => {
   });
 
   return (
-    <section className="relative min-h-screen py-20 md:py-32 font-sans overflow-hidden bg-[#0B0B0E]">
-      <AnimatedGridBackground />
-
-      {/* Ambient Effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute -left-96 top-20 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl"
-          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -right-96 bottom-20 h-96 w-96 rounded-full bg-indigo-500/15 blur-3xl"
-          animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-        />
-      </div>
-
-      {mounted && <ParticleField />}
-
-      {/* Animated Spotlight */}
-      <motion.div
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          background: "radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)",
-        }}
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-
+    <section className="relative min-h-screen py-24 md:py-32 font-sans overflow-hidden bg-black">
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-12 px-6 md:px-16">
         {/* Title Section */}
-        <motion.div className="mb-4 text-center">
+        <motion.div 
+          className="mb-4 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <motion.div
             className="flex items-center justify-center gap-3 mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <motion.div
-              className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-400"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1 }}
-            />
-            <Sparkles className="text-cyan-400" size={20} />
-            <motion.div
-              className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1 }}
-            />
           </motion.div>
 
-          <h2 className="text-5xl md:text-7xl font-black mb-4 relative">
-            <motion.span
-              className="bg-gradient-to-r from-cyan-400 via-purple-600 to-teal-400 bg-clip-text text-transparent"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-              style={{ backgroundSize: "200% auto" }}
-            >
-              Knowledge Base
-            </motion.span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#2EE1C7] leading-[1.1]">
+            Knowledge Base
           </h2>
 
           <motion.p
             className="text-[#D1D5DB] text-base md:text-lg font-semibold uppercase tracking-widest mt-4"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.5 }}
           >
             [ Frequently Asked Questions ]
           </motion.p>
-
-          <motion.div
-            className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent mt-6 max-w-md mx-auto"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.5, delay: 0.6 }}
-          />
         </motion.div>
 
         {/* Search and Filter */}
-        <SearchAndFilter
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-          categories={categories}
-        />
+        <motion.div 
+           className="w-full"
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ delay: 0.6 }}
+        >
+          <SearchAndFilter
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+            categories={categories}
+          />
+        </motion.div>
 
         {/* FAQ List */}
         <div className="relative z-10 w-full max-w-4xl space-y-4">
@@ -537,13 +411,7 @@ const FAQs = () => {
         )}
       </div>
 
-      {/* Bottom Gradient */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0B0B0E] via-[#0B0B0E]/50 to-transparent pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      />
+
     </section>
   );
 };

@@ -1,6 +1,6 @@
-import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { Star, MessageCircle, TrendingUp, Users, Award, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -41,255 +41,12 @@ const testimonials = [
   },
 ];
 
-const stats = [
-  { icon: Users, label: "Happy Clients", value: "150+" },
-  { icon: TrendingUp, label: "Projects Delivered", value: "320+" },
-  { icon: Award, label: "Success Rate", value: "98%" },
-  { icon: MessageCircle, label: "Avg Rating", value: "4.9/5" },
-];
-
-const ROTATION_INTERVAL = 4500;
-
-const HexGrid = () => (
-  <div className="absolute inset-0 overflow-hidden opacity-10">
-    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-          <polygon points="24.8,22 37.3,29.2 37.3,43.7 24.8,50.9 12.3,43.7 12.3,29.2" fill="none" stroke="rgba(59, 130, 246, 0.3)" strokeWidth="0.5" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#hexagons)" />
-    </svg>
-  </div>
-);
-
-const DataStream = ({ delay, duration, left }) => (
-  <motion.div
-    className="absolute w-px bg-gradient-to-b from-transparent via-cyan-400 to-transparent"
-    initial={{ height: 0, top: "-10%" }}
-    animate={{ height: ["0%", "20%", "0%"], top: ["-10%", "110%"] }}
-    transition={{ duration: duration || 3, delay: delay || 0, repeat: Infinity, ease: "linear" }}
-    style={{ left }}
-  />
-);
-
-const CircuitLine = () => (
-  <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
-    <motion.path
-      d="M 0,100 Q 250,50 500,100 T 1000,100"
-      stroke="url(#gradient)"
-      strokeWidth="2"
-      fill="none"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: 1 }}
-      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-    />
-    <defs>
-      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#00FFFF" stopOpacity="0" />
-        <stop offset="50%" stopColor="#6D28D9" stopOpacity="1" />
-        <stop offset="100%" stopColor="#00FFFF" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
-
-const StatsCard = ({ stat, index }) => {
-  const Icon = stat.icon;
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.6 }}
-      className="relative group"
-    >
-      <motion.div
-        className="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"
-        style={{ background: "linear-gradient(135deg, #00FFFF, #6D28D9)" }}
-      />
-      <div className="relative bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-6 rounded-xl border border-cyan-500/20 backdrop-blur-xl">
-        <motion.div className="flex items-center justify-between mb-4" whileHover={{ x: 5 }}>
-          <Icon className="w-8 h-8 text-cyan-400" />
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="w-2 h-2 rounded-full bg-cyan-400"
-          />
-        </motion.div>
-        <motion.h3 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-1">
-          {stat.value}
-        </motion.h3>
-        <p className="text-sm text-slate-400">{stat.label}</p>
-      </div>
-    </motion.div>
-  );
-};
-
-// — Exact original card design, unchanged —
-const TestimonialCard = ({ testimonial }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [10, -10]);
-  const rotateY = useTransform(x, [-100, 100], [-10, 10]);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set(e.clientX - (rect.left + rect.width / 2));
-    y.set(e.clientY - (rect.top + rect.height / 2));
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-    setIsHovered(false);
-  };
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  return (
-    <motion.div
-      style={{
-        rotateX: isMobile ? 0 : rotateX,
-        rotateY: isMobile ? 0 : rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      className="relative group cursor-pointer w-full"
-    >
-      {/* Holographic glow */}
-      <motion.div
-        className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
-        style={{
-          background: "linear-gradient(45deg, #00FFFF, #6D28D9, #14B8A6, #00FFFF)",
-          backgroundSize: "300% 300%",
-        }}
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-      />
-
-      {/* Main card */}
-      <div
-        className="relative bg-gradient-to-br from-[#0D0D10] via-[#0B0B0E] to-[#0B0B0E] p-8 rounded-3xl border border-cyan-500/20 overflow-hidden backdrop-blur-sm shadow-lg shadow-cyan-500/10 font-sans"
-        style={{ transform: "translateZ(50px)" }}
-      >
-        {/* Scan line */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
-          animate={{ y: ["-100%", "200%"] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-        />
-
-        {/* Corner markers */}
-        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-400" />
-        <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-purple-500" />
-        <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-purple-500" />
-        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-400" />
-
-        {/* Grid overlay */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="w-full h-full" style={{
-            backgroundImage: `repeating-linear-gradient(0deg,rgba(0,255,255,0.5) 0px,rgba(0,255,255,0.5) 1px,transparent 1px,transparent 4px),repeating-linear-gradient(90deg,rgba(0,255,255,0.5) 0px,rgba(0,255,255,0.5) 1px,transparent 1px,transparent 4px)`,
-          }} />
-        </div>
-
-        {/* Avatar + meta */}
-        <div className="relative flex items-start justify-between mb-6 z-10">
-          <div className="flex-1">
-            <div className="relative flex items-center mb-4">
-              <div className="relative w-14 h-14 flex-shrink-0">
-                <motion.div className="absolute -inset-2 rounded-full border-2 border-cyan-400/50" animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} />
-                <motion.div className="absolute -inset-3 rounded-full border border-blue-500/30" animate={{ rotate: -360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} />
-                <motion.div className="absolute -inset-1 rounded-full bg-cyan-400" animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2, repeat: Infinity }} />
-                <img src={testimonial.avatar} alt={testimonial.name} className="relative w-14 h-14 rounded-full border-2 border-cyan-400 object-cover bg-slate-800" />
-                <motion.div
-                  className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-[#0B0B0E]"
-                  animate={{ scale: [1, 1.2, 1], boxShadow: ["0 0 0 0 rgba(34,197,94,0.7)", "0 0 0 8px rgba(34,197,94,0)", "0 0 0 0 rgba(34,197,94,0.7)"] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </div>
-              <div className="ml-4 flex-1">
-                <motion.h3
-                  className="font-bold text-base md:text-lg bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
-                  animate={isHovered ? { x: [0, 5, 0] } : {}}
-                  transition={{ duration: 0.5 }}
-                >
-                  {testimonial.name}
-                </motion.h3>
-                <p className="text-[#D1D5DB] text-xs font-normal mt-0.5">{testimonial.role}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-1 mb-3">
-              {[...Array(testimonial.rating)].map((_, i) => (
-                <motion.div key={i} initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }}>
-                  <Star className="w-4 h-4 fill-cyan-400 text-cyan-400" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <motion.div className="ml-4 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-400/30" whileHover={{ scale: 1.05 }}>
-            <span className="text-xs font-semibold text-cyan-300">{testimonial.category}</span>
-          </motion.div>
-        </div>
-
-        {/* Feedback text */}
-        <div className="relative z-10 mb-6">
-          <motion.div className="absolute -left-2 -top-2 text-4xl text-cyan-400/20 font-serif leading-none" animate={{ opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 2, repeat: Infinity }}>
-            "
-          </motion.div>
-          <p className="text-[#D1D5DB] text-sm font-normal leading-relaxed pl-4 pr-2 relative">
-            {testimonial.feedback}
-          </p>
-          <motion.div className="absolute -right-2 -bottom-2 text-4xl text-purple-400/20 font-serif leading-none" animate={{ opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 2, repeat: Infinity, delay: 1 }}>
-            "
-          </motion.div>
-        </div>
-
-        {/* Animated bottom line */}
-        <motion.div
-          className="absolute bottom-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
-          animate={{ scaleX: [0, 1, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      <div className="absolute inset-0 bg-cyan-500/5 rounded-3xl blur-2xl -z-10 group-hover:bg-cyan-500/15 transition-all duration-500" style={{ transform: "translateZ(-50px)" }} />
-    </motion.div>
-  );
-};
-
-// Slide variants — only thing added from component 2
-const slideVariants = {
-  enter: (dir) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
-};
+const ROTATION_INTERVAL = 5000;
 
 const Testimonials = () => {
-  const [mounted, setMounted] = useState(false);
-  const [streams] = useState(() =>
-    [...Array(8)].map((_, i) => ({
-      delay: i * 0.5,
-      duration: 3 + (i % 3) * 0.7,
-      left: `${(i * 13) % 100}%`,
-    }))
-  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const isPausedRef = useRef(false);
-
-  useEffect(() => { setMounted(true); }, []);
 
   const paginate = (dir) => {
     setDirection(dir);
@@ -303,149 +60,166 @@ const Testimonials = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isPausedRef.current) {
-        setDirection(1);
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+        paginate(1);
       }
     }, ROTATION_INTERVAL);
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
+
+  const testimonial = testimonials[currentIndex];
 
   return (
     <section
-      className="relative min-h-screen py-20 md:py-32 font-sans overflow-hidden bg-[#0B0B0E]"
+      className="bg-black py-24 min-h-[80vh] flex items-center overflow-hidden relative"
       onMouseEnter={() => (isPausedRef.current = true)}
       onMouseLeave={() => (isPausedRef.current = false)}
     >
-      <HexGrid />
-      {mounted && streams.map((s, i) => <DataStream key={i} delay={s.delay} duration={s.duration} left={s.left} />)}
-      <CircuitLine />
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#2EE1C7]/[0.03] rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#2EE1C7]/[0.02] rounded-full blur-[150px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
-      <motion.div
-        className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[600px] w-[600px] -translate-x-1/2 rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 70%)" }}
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 5, repeat: Infinity }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-16">
-
-        {/* Header — unchanged */}
-        <motion.div
-          className="mb-20 text-center"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, type: "spring" }}
+      <div className="container mx-auto px-4 max-w-5xl relative z-10">
+        {/* Header - Refined sizing */}
+        <motion.div 
+          className="text-center mb-16 md:mb-24"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mb-8 max-w-md mx-auto" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.5, delay: 0.3 }} />
-          <h2 className="text-5xl md:text-7xl font-black mb-4 relative">
-            <motion.span
-              className="bg-gradient-to-r from-cyan-400 via-purple-600 to-teal-400 bg-clip-text text-transparent"
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-              style={{ backgroundSize: "200% auto" }}
-            >
-              Client Feedback
-            </motion.span>
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-600 to-teal-400 bg-clip-text text-transparent"
-              animate={{ opacity: [0, 0.5, 0], x: [0, -2, 2, 0] }}
-              transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 3 }}
-            >
-              Client Feedback
-            </motion.span>
-          </h2>
-          <motion.p className="text-[#D1D5DB] text-base md:text-lg font-semibold uppercase tracking-widest mt-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-            [ Verified Testimonials & Success Stories ]
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]"
+          >
+            Don't take our word for it.
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold italic text-[#2EE1C7] tracking-tight mt-2"
+          >
+            Take theirs...
           </motion.p>
-          <motion.div className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent mt-8 max-w-md mx-auto" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.5, delay: 0.6 }} />
         </motion.div>
 
-        {/* Stats grid — unchanged */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-          {stats.map((stat, index) => <StatsCard key={index} stat={stat} index={index} />)}
-        </div>
-
-        {/* Carousel — new sliding behavior, same card */}
-        <div className="relative" style={{ perspective: "1000px" }}>
-
-          {/* Prev button */}
-          <button
-            onClick={() => paginate(-1)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-20 w-10 h-10 rounded-full border border-cyan-500/30 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center text-cyan-400 hover:border-cyan-400 hover:bg-cyan-400/10 transition-all duration-200"
-            aria-label="Previous"
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          {/* Next button */}
-          <button
-            onClick={() => paginate(1)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-20 w-10 h-10 rounded-full border border-cyan-500/30 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center text-cyan-400 hover:border-cyan-400 hover:bg-cyan-400/10 transition-all duration-200"
-            aria-label="Next"
-          >
-            <ChevronRight size={20} />
-          </button>
-
-          {/* Sliding card */}
-          <div className="overflow-hidden px-2">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
-                className="max-w-2xl mx-auto"
-              >
-                <TestimonialCard testimonial={testimonials[currentIndex]} />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Dot indicators */}
-          <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setDirection(idx > currentIndex ? 1 : -1);
-                  setCurrentIndex(idx);
-                }}
-                aria-label={`Go to testimonial ${idx + 1}`}
-                className="relative h-2 rounded-full transition-all duration-300 overflow-hidden"
-                style={{ width: idx === currentIndex ? 32 : 8 }}
-              >
-                <span
-                  className={`absolute inset-0 rounded-full transition-all duration-300 ${
-                    idx === currentIndex ? "bg-cyan-400" : "bg-slate-600 hover:bg-cyan-400/40"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-
-          {/* Progress bar */}
-          <div className="mt-4 mx-auto max-w-xs h-px bg-slate-800 rounded-full overflow-hidden">
+        {/* Testimonial Block - Horizontal Layout */}
+        <motion.div 
+          className="relative"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={currentIndex}
-              className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: ROTATION_INTERVAL / 1000, ease: "linear" }}
-            />
-          </div>
-        </div>
-      </div>
+              custom={direction}
+              variants={{
+                enter: (dir) => ({ x: dir > 0 ? 30 : -30, opacity: 0 }),
+                center: { x: 0, opacity: 1 },
+                exit: (dir) => ({ x: dir > 0 ? -30 : 30, opacity: 0 }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20"
+            >
+              {/* Left Side: Scaled Image with Decorative Backgrounds */}
+              <div className="relative w-full max-w-[285px] md:w-1/2 group">
+                {/* Decorative teal divs behind image - Increased visibility */}
+                <div className="absolute -inset-6 rounded-[2rem] bg-[#2EE1C7]/20 -z-10 blur-3xl opacity-60" />
+                <div className="absolute inset-0 rounded-[1.5rem] bg-[#2EE1C7]/15 -z-10 -rotate-6 border border-[#2EE1C7]/30" />
+                <div className="absolute inset-0 rounded-[1.5rem] bg-[#2EE1C7]/10 -z-10 rotate-3 border border-[#2EE1C7]/20" />
+                <div className="absolute -bottom-4 -right-4 w-1/2 h-1/2 rounded-full bg-[#2EE1C7]/20 -z-10 blur-2xl" />
 
-      <motion.div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#06060C] to-transparent"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      />
-    </section>
+                <div className="relative aspect-square rounded-[1.5rem] overflow-hidden border border-white/10 p-3 bg-white/[0.05]">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="h-full w-full object-contain rounded-[1rem]"
+                  />
+                </div>
+              </div>
+
+              {/* Right Side: Refined Text */}
+              <div className="w-full md:w-1/2 text-left space-y-6">
+                <div className="space-y-1">
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#2EE1C7]">
+                    {testimonial.name}
+                  </h3>
+                  <p className="text-base text-slate-400 font-medium">
+                    {testimonial.role}
+                  </p>
+                  <p className="text-[#2EE1C7]/80 text-sm font-bold tracking-tight">
+                    {testimonial.category}
+                  </p>
+                </div>
+
+                <div className="relative">
+                  <div className="text-5xl text-[#2EE1C7]/10 font-serif absolute -top-10 -left-6 pointer-events-none">
+                    "
+                  </div>
+                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed relative z-10 italic font-normal max-w-lg">
+                    {testimonial.feedback}
+                  </p>
+                </div>
+
+                {/* Mobile Navigation arrows */}
+                <div className="flex md:hidden items-center gap-4 pt-2">
+                  <button onClick={() => paginate(-1)} className="p-2 rounded-full border border-white/10 text-white"><ChevronLeft size={18} /></button>
+                  <button onClick={() => paginate(1)} className="p-2 rounded-full border border-white/10 text-white"><ChevronRight size={18} /></button>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation Controls */}
+          <div className="mt-16 flex flex-col items-center">
+            <div className="hidden md:flex items-center gap-6">
+              <button
+                onClick={() => paginate(-1)}
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#2EE1C7] hover:text-white transition-all"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              <div className="flex gap-2.5">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setDirection(idx > currentIndex ? 1 : -1);
+                      setCurrentIndex(idx);
+                    }}
+                    className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? "w-8 bg-white" : "w-1.5 bg-white/20"
+                      }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => paginate(1)}
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#2EE1C7] hover:text-white transition-all"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
+            {/* Simple mobile dots */}
+            <div className="flex md:hidden gap-2">
+              {testimonials.map((_, idx) => (
+                <div key={idx} className={`h-1.5 rounded-full transition-all ${idx === currentIndex ? "w-6 bg-white" : "w-1.5 bg-white/20"}`} />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section >
   );
 };
 
