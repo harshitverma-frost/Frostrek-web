@@ -20,7 +20,7 @@ const TrustedBy = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+          <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
             Trusted by <span className="text-[#2EE1C7] font-Raleway">Industry Leaders</span>
           </h2>
           <motion.p

@@ -323,7 +323,7 @@ const FAQs = () => {
     <section className="relative min-h-screen py-24 md:py-32 font-sans overflow-hidden bg-black">
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-12 px-6 md:px-16">
         {/* Title Section */}
-        <motion.div 
+        <motion.div
           className="mb-4 text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -339,7 +339,7 @@ const FAQs = () => {
           >
           </motion.div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[#2EE1C7] leading-[1.1]">
+          <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#2EE1C7] leading-[1.1]">
             Knowledge Base
           </h2>
 
@@ -355,12 +355,12 @@ const FAQs = () => {
         </motion.div>
 
         {/* Search and Filter */}
-        <motion.div 
-           className="w-full"
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ delay: 0.6 }}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
         >
           <SearchAndFilter
             searchTerm={searchTerm}

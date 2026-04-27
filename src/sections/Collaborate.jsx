@@ -66,13 +66,12 @@ const FormField = ({ label, name, type = "text", placeholder, required, rows, er
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           value={value}
-          className={`w-full rounded-xl border-2 bg-[#08080c]/80 px-4 py-3 text-base font-normal text-slate-100 placeholder:text-slate-500 transition-all duration-300 focus:outline-none ${
-            focused
-              ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
-              : error
+          className={`w-full rounded-xl border-2 bg-[#08080c]/80 px-4 py-3 text-base font-normal text-slate-100 placeholder:text-slate-500 transition-all duration-300 focus:outline-none ${focused
+            ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+            : error
               ? "border-red-500/50"
               : "border-white/10 hover:border-white/20"
-          }`}
+            }`}
           placeholder={placeholder}
         />
 
@@ -121,9 +120,8 @@ const FloatingContactCard = ({ method, index }) => {
     >
 
 
-      <div className={`relative flex items-center gap-4 rounded-2xl border border-white/10 bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-6 backdrop-blur-xl transition-all duration-300 ${
-        isHovered ? "border-cyan-400/60 bg-cyan-500/5" : "hover:border-white/20"
-      }`}>
+      <div className={`relative flex items-center gap-4 rounded-2xl border border-white/10 bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-6 backdrop-blur-xl transition-all duration-300 ${isHovered ? "border-cyan-400/60 bg-cyan-500/5" : "hover:border-white/20"
+        }`}>
         <motion.div
           className={`flex h-14 w-14 flex-none items-center justify-center rounded-xl bg-gradient-to-br ${method.color} p-0.5`}
           animate={{ rotate: isHovered ? 360 : 0, scale: isHovered ? 1.1 : 1 }}
@@ -209,46 +207,46 @@ const Collaborate = () => {
   };
 
   const handleSubmit = async (event) => {
-  event.preventDefault();
-  const errors = validateForm();
+    event.preventDefault();
+    const errors = validateForm();
 
-  if (Object.keys(errors).length > 0) {
-    setFormErrors(errors);
-    return;
-  }
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
 
-  setLoading(true);
-  setFormErrors({});
+    setLoading(true);
+    setFormErrors({});
 
-  const templateParams = {
-    full_name: formData.name,
-    email: formData.email,
-    company: formData.company || "N/A",
-    message: formData.message,
-    time: new Date().toLocaleString("en-IN", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }),
-  }
+    const templateParams = {
+      full_name: formData.name,
+      email: formData.email,
+      company: formData.company || "N/A",
+      message: formData.message,
+      time: new Date().toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+    }
 
-  try {
-    await emailjs.send(
-      "service_vau3fva",
-      "template_1bg6qob",
-      templateParams,
-      "yVNB9iZBs_EfVfoY7"
-    );
+    try {
+      await emailjs.send(
+        "service_vau3fva",
+        "template_1bg6qob",
+        templateParams,
+        "yVNB9iZBs_EfVfoY7"
+      );
 
-    setStatus("submitted");
-    setFormData({ name: "", email: "", company: "", message: "" });
-  } catch (error) {
-    console.error("Email send failed:", error);
-    alert("Failed to send message. Please try again.");
-  } finally {
-    setLoading(false);
-    setTimeout(() => setStatus("idle"), 5000);
-  }
-};
+      setStatus("submitted");
+      setFormData({ name: "", email: "", company: "", message: "" });
+    } catch (error) {
+      console.error("Email send failed:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+      setTimeout(() => setStatus("idle"), 5000);
+    }
+  };
 
 
 
@@ -271,13 +269,13 @@ const Collaborate = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-8">
+          <h2 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] mb-8">
             <span className="text-[#2EE1C7]">Build the next generation</span>
             <br />
             <span>of intelligence with Frostrek</span>
           </h2>
 
-          <motion.p 
+          <motion.p
             className="text-lg text-slate-300/80 max-w-2xl mx-auto mt-6 leading-relaxed"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -320,12 +318,12 @@ const Collaborate = () => {
             </motion.div>
 
             {/* Contact Methods */}
-            <motion.div 
-               className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1"
-               initial={{ opacity: 0, y: 20 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: 0.4 }}
+            <motion.div
+              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
             >
               {contactMethods.map((method, index) => (
                 <FloatingContactCard key={method.label} method={method} index={index} />
@@ -413,41 +411,41 @@ const Collaborate = () => {
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                <motion.div
-                  animate={{ rotate: loading ? 360 : 0 }}
-                  transition={{ duration: 1, repeat: loading ? Infinity : 0 }}
-                >
-                  <Send size={18} />
-                </motion.div>
-                <span>
-                  {loading
-                    ? "Sending..."
-                    : status === "submitted"
-                    ? "Message Sent! ✓"
-                    : "Send Message"}
-                </span>
-              </motion.button>
-
-              {/* Success Message */}
-              <AnimatePresence>
-                {status === "submitted" && (
                   <motion.div
-                    className="mt-4 p-4 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.4 }}
+                    animate={{ rotate: loading ? 360 : 0 }}
+                    transition={{ duration: 1, repeat: loading ? Infinity : 0 }}
                   >
-                    <p className="text-sm font-semibold text-emerald-300 flex items-center gap-2">
-                      <CheckCircle2 size={16} />
-                      Thanks for reaching out! Our team will respond shortly.
-                    </p>
+                    <Send size={18} />
                   </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </form>
-        </motion.div>
+                  <span>
+                    {loading
+                      ? "Sending..."
+                      : status === "submitted"
+                        ? "Message Sent! ✓"
+                        : "Send Message"}
+                  </span>
+                </motion.button>
+
+                {/* Success Message */}
+                <AnimatePresence>
+                  {status === "submitted" && (
+                    <motion.div
+                      className="mt-4 p-4 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <p className="text-sm font-semibold text-emerald-300 flex items-center gap-2">
+                        <CheckCircle2 size={16} />
+                        Thanks for reaching out! Our team will respond shortly.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </form>
+          </motion.div>
         </div>
       </div>
     </section>

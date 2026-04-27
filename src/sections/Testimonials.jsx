@@ -80,7 +80,7 @@ const Testimonials = () => {
 
       <div className="container mx-auto px-4 max-w-5xl relative z-10">
         {/* Header - Refined sizing */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16 md:mb-24"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ const Testimonials = () => {
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]"
+            className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]"
           >
             Don't take our word for it.
           </motion.h2>
@@ -100,14 +100,14 @@ const Testimonials = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold italic text-[#2EE1C7] tracking-tight mt-2"
+            className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold italic text-[#2EE1C7] tracking-tight mt-2"
           >
             Take theirs...
           </motion.p>
         </motion.div>
 
         {/* Testimonial Block - Horizontal Layout */}
-        <motion.div 
+        <motion.div
           className="relative"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

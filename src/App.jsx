@@ -9,6 +9,7 @@ import FrostyChatbot from "./components/FrostyChatbot";
 
 import Hero from "./sections/Hero";
 import Services from "./sections/Services";
+import AISolutionsShowcase from "./sections/AISolutionsShowcase";
 import TrustedBy from "./sections/TrustedBy";
 
 import Testimonials from "./sections/Testimonials";
@@ -39,6 +40,7 @@ const Home = () => {
     <div className="bg-black text-[#FFFFFF] min-h-screen scroll-smooth">
       <Hero />
       <Services />
+      <AISolutionsShowcase />
       <TrustedBy />
 
       <Testimonials />

@@ -98,7 +98,7 @@ const Services = () => {
           </motion.div> */}
 
           <motion.h2
-            className=" text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-50 leading-[1.1]"
+            className=" text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-50 leading-[1.1]"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
